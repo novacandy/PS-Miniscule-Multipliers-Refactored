@@ -331,7 +331,7 @@ addLayer("p", {
             title: "Millionaire's Fortune",
             description() {return "Unlock a new layer. Multiply global multiplier limit by 1.2. This upgrade is kept permanently."},
             cost: new Decimal(1000000),
-            unlocked() {return player.p.lastUpgradeUnlocked || hasUpgrade('p', 25)}
+            unlocked() {return player.p.lastUpgradeUnlocked || hasUpgrade('p', 25) || hasMilestone('s', 12)}
         }
     },
     effect() {
