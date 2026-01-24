@@ -1750,7 +1750,7 @@ addLayer("b", {
                 ],
             },
             "Brick Charge": {
-                unlocked() {return },
+                unlocked() {return hasMilestone('b', 1)},
                 content: [
                     "blank",
                     ["display-text", "Activate brick charge by clicking on one of the clickables below"],
