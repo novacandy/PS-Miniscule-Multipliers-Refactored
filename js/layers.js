@@ -754,7 +754,7 @@ addLayer("s", {
         8: {
             requirementDescription: "1,000,000 sacrificial energy",
             effectDescription() {return "Earn a multiplier to brick generation based on point generation. Currently: x" + format(this.effect())},
-            done() { return player.s.energy.gte(10000000) },
+            done() { return player.s.energy.gte(1000000) },
             unlocked() {return hasMilestone('s', 7)},
             effect() {
                 return getPointGen().add(1).log(5).add(1).min(getMultiLimit())
