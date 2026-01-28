@@ -80,7 +80,11 @@ function getMultiLimit() {
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
 	name: "",
-	inDialogue: false
+	inDialogue: false,
+	dialogueInput: "",
+	dialogueStep: 0,
+	dialogueStatus: "introduction1",
+	currentImage: "resources/mimiHappy.png",
 }}
 
 // Display extra things at the top of the page
