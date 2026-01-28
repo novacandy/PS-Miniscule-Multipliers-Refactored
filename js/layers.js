@@ -421,13 +421,6 @@ addLayer("s", {
         trueResetTime: 0,
         best: new Decimal(0),
 
-        // dialogue stuff
-        dialogueInput: "",
-        dialogueStep: 0,
-        dialogueStatus: "introduction1",
-        currentImage: "resources/mimiHappy.png",
-        hasReadDialogue: true
-
     }},
     color: "#8513baff",
     requires: new Decimal(100),
@@ -501,10 +494,10 @@ addLayer("s", {
             title: "Mimi",
             body() {return " \
                     <br>\
-                    <br><img src=" + player.s.currentImage + " width='240px' height='240px'><br>\
+                    <br><img src=" + player.currentImage + " width='240px' height='240px'><br>\
                     <br>\
-                    <br><p>" + renderDialogue(player.s.dialogueStatus, Math.floor(player.s.dialogueStep / 1.2)) + "</p><br>\
-                    <p>" + trueDialogue[player.s.dialogueStatus].command + "</p><br>\
+                    <br><p>" + renderDialogue(player.dialogueStatus, Math.floor(player.dialogueStep / 1.2)) + "</p><br>\
+                    <p>" + trueDialogue[player.dialogueStatus].command + "</p><br>\
             "},
         },
     },
@@ -754,7 +747,7 @@ addLayer("s", {
         8: {
             requirementDescription: "1,000,000 sacrificial energy",
             effectDescription() {return "Earn a multiplier to brick generation based on point generation. Currently: x" + format(this.effect())},
-            done() { return player.s.energy.gte(1000000) },
+            done() { return player.s.energy.gte(10000000) },
             unlocked() {return hasMilestone('s', 7)},
             effect() {
                 return getPointGen().add(1).log(5).add(1).min(getMultiLimit())
@@ -849,9 +842,9 @@ addLayer("s", {
         11: {
             title: ">",
             onClick() {
-                trueDialogue[player.s.dialogueStatus].onSend()
+                trueDialogue[player.dialogueStatus].onSend()
             },
-            canClick() {return trueDialogue[player.s.dialogueStatus].canSend()},
+            canClick() {return trueDialogue[player.dialogueStatus].canSend()},
         }
     },
     microtabs: {
@@ -951,8 +944,8 @@ addLayer("s", {
         setBuyableAmount('s', 21, keepTrueLevel)
     },
     update(diff) {
-        if (player.s.dialogueStep < trueDialogue[player.s.dialogueStatus].mimiText().length * 1.2) {
-            player.s.dialogueStep++
+        if (player.dialogueStep < trueDialogue[player.dialogueStatus].mimiText().length * 1.2) {
+            player.dialogueStep++
         }
         player.s.trueResetTime += diff
         triggerDialogues()
@@ -1750,7 +1743,7 @@ addLayer("b", {
                 ],
             },
             "Brick Charge": {
-                unlocked() {return hasMilestone('b', 1)},
+                unlocked() {return },
                 content: [
                     "blank",
                     ["display-text", "Activate brick charge by clicking on one of the clickables below"],

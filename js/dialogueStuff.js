@@ -15,7 +15,7 @@ const trueDialogue = {
         command: '> Enter your name.',
         startImage: "resources/mimiHappy.png",
         canSend() {return true},
-        onSend() {player.name = player.s.dialogueInput; startDialogue("introduction2")}
+        onSend() {player.name = player.dialogueInput; startDialogue("introduction2")}
     }, 
     introduction2: {
         onLoad() {player.p.lastUpgradeUnlocked = true},
@@ -104,17 +104,17 @@ function renderDialogue(dialogueid, step) {
         if (trueDialogue[dialogueid].mimiText().charAt(i) == "@") {
             i++
             if (trueDialogue[dialogueid].mimiText().charAt(i) == "h") {
-                player.s.currentImage = "resources/mimiHappy.png"
+                player.currentImage = "resources/mimiHappy.png"
             } else if (trueDialogue[dialogueid].mimiText().charAt(i) == "e") {
-                player.s.currentImage = "resources/mimiExcited.png"
+                player.currentImage = "resources/mimiExcited.png"
             } else if (trueDialogue[dialogueid].mimiText().charAt(i) == "s") {
-                player.s.currentImage = "resources/mimiSmile.png"
+                player.currentImage = "resources/mimiSmile.png"
             } else if (trueDialogue[dialogueid].mimiText().charAt(i) == "m") {
-                player.s.currentImage = "resources/mimiEmbarrassed.png"
+                player.currentImage = "resources/mimiEmbarrassed.png"
             } else if (trueDialogue[dialogueid].mimiText().charAt(i) == "u") {
-                player.s.currentImage = "resources/mimiSurprised.png"
+                player.currentImage = "resources/mimiSurprised.png"
             } else if (trueDialogue[dialogueid].mimiText().charAt(i) == "n") {
-                player.s.currentImage = "resources/mimiNormal.png"
+                player.currentImage = "resources/mimiNormal.png"
             }
         } else {
             ret = ret + trueDialogue[dialogueid].mimiText().charAt(i)
@@ -124,18 +124,18 @@ function renderDialogue(dialogueid, step) {
 }
 function startDialogue(dialogueid) {
     trueDialogue[dialogueid].onLoad()
-    player.s.dialogueInput = ''
-    player.s.dialogueStatus = dialogueid
-    player.s.dialogueStep = 0
-    player.s.currentImage = trueDialogue[dialogueid].startImage
+    player.dialogueInput = ''
+    player.dialogueStatus = dialogueid
+    player.dialogueStep = 0
+    player.currentImage = trueDialogue[dialogueid].startImage
 }
 function triggerDialogues() {
-    if (player.s.dialogueStatus == "introduction2" && hasUpgrade('p', 25)) startDialogue('bricks1')
-    if (player.s.dialogueStatus == "bricks1" && player.b.points.gte(10)) startDialogue('bricks2')
-    if (player.s.dialogueStatus == "bricks2" && player.b.bricks.gte(10000)) startDialogue('bricks3')
-    if (player.s.dialogueStatus == "bricks3" && player.t.points.gte(1)) startDialogue('tires1')
-    if (player.s.dialogueStatus == "tires1" && player.s.energy.gte(1e10) && player.t.tires.gte(1e10)) startDialogue('tires2')
-    if (player.s.dialogueStatus == "tires2" && getBuyableAmount('s', 21).gte(6)) startDialogue('miniscule1')
-    if (player.s.dialogueStatus == "miniscule1" && hasMilestone('s', 19) && hasMilestone('s', 20) && hasMilestone('t', 3)) startDialogue('miniscule2')
-    if (player.s.dialogueStatus == "miniscule2" && player.points.gte(1e12)) {startDialogue('end'); player.s.dialogueStep = 92} 
+    if (player.dialogueStatus == "introduction2" && hasUpgrade('p', 25)) startDialogue('bricks1')
+    if (player.dialogueStatus == "bricks1" && player.b.points.gte(10)) startDialogue('bricks2')
+    if (player.dialogueStatus == "bricks2" && player.b.bricks.gte(10000)) startDialogue('bricks3')
+    if (player.dialogueStatus == "bricks3" && player.t.points.gte(1)) startDialogue('tires1')
+    if (player.dialogueStatus == "tires1" && player.s.energy.gte(1e10) && player.t.tires.gte(1e10)) startDialogue('tires2')
+    if (player.dialogueStatus == "tires2" && getBuyableAmount('s', 21).gte(6)) startDialogue('miniscule1')
+    if (player.dialogueStatus == "miniscule1" && hasMilestone('s', 19) && hasMilestone('s', 20) && hasMilestone('t', 3)) startDialogue('miniscule2')
+    if (player.dialogueStatus == "miniscule2" && player.points.gte(1e12)) {startDialogue('end'); player.dialogueStep = 92} 
 }
